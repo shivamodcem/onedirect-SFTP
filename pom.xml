@@ -19,6 +19,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <log4j2.version>2.16.0</log4j2.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -30,7 +31,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <!-- Application -->
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
-        <slf4j.vaersion>1.7.30</slf4j.vaersion>
         <apache.commons.version>3.11</apache.commons.version>
         <google.guava.version>19.0</google.guava.version>
         <dto-commons.version>1.1.73-RELEASE</dto-commons.version>
@@ -42,6 +42,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -96,6 +102,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <version>2.4.2</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.onedirect</groupId>

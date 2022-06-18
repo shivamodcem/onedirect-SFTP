@@ -4,17 +4,10 @@ import java.util.List;
 
 public class CustomerFieldRequestDto {
 
-  private Long id;
   private Integer fieldId;
   private List<CustomerFieldOptionsValueDataDto> fieldValuesDataList;
 
-  public Long getId() {
-    return id;
-  }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public Integer getFieldId() {
     return fieldId;
@@ -36,8 +29,8 @@ public class CustomerFieldRequestDto {
   @Override
   public String toString() {
     return "CustomerFieldRequestDto{"
-            + "id=" + id
-            + ", fieldId=" + fieldId
+
+            + "fieldId=" + fieldId
             + ", fieldValuesDataList=" + fieldValuesDataList
             + '}';
   }

@@ -1,17 +1,9 @@
 package com.onedirect.sftp.DTO.ThirdPartyDto;
 
 public class CustomerFieldOptionsValueDataDto {
-  private Integer mappingId;
+
   private Long optionId;
   private Object value;
-
-  public Integer getMappingId() {
-    return mappingId;
-  }
-
-  public void setMappingId(Integer mappingId) {
-    this.mappingId = mappingId;
-  }
 
   public Long getOptionId() {
     return optionId;
@@ -32,8 +24,7 @@ public class CustomerFieldOptionsValueDataDto {
   @Override
   public String toString() {
     return "CustomerFieldOptionsValueDataDto{"
-            + "mappingId=" + mappingId
-            + ", optionId=" + optionId
+            + " optionId=" + optionId
             + ", value=" + value
             + '}';
   }

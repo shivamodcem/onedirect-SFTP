@@ -39,6 +39,7 @@ public class SendToThirdPartyImpl implements SendToThirdParty {
                         thirdPartyTicketInputDto,
                         reqHeaders, TicketResponseDto.class);
                 if (HttpStatus.valueOf(ticketResponse.getHttpStatus().value()).is2xxSuccessful()) {
+                    LOG.info(ticketResponse.getBody().toString());
                     return true;
                 } else {
                     LOG.error("Error while creating Thirdparty Ticket {}",ticketResponse.getBody().toString() );

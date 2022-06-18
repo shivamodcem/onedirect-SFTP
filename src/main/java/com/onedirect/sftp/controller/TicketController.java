@@ -1,6 +1,9 @@
 package com.onedirect.sftp.controller;
 import com.onedirect.sftp.DTO.BrandUserDto.BrandUserDto;
 import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDetailedDto;
+import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDto;
+import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldOptionsValueDataDto;
+import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldRequestDto;
 import com.onedirect.sftp.DTO.ThirdPartyDto.ThirdPartyTicketInputDto;
 import com.onedirect.sftp.DTO.TicketFieldBrandDto.TicketFieldDTO;
 import com.onedirect.sftp.SftpShopperstopApplication;
@@ -34,7 +37,7 @@ public class TicketController {
 
     @Autowired
     private ReadingFile readingFile;
-    private static final Logger log = LoggerFactory.getLogger(SftpShopperstopApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(TicketController.class);
     @Autowired
     private ExtractBrandUsersImpl extractBrandUsers;
 
@@ -116,11 +119,26 @@ public class TicketController {
     }
     @RequestMapping(value="/send", method= RequestMethod.POST)
     public ResponseEntity<String> send(){
-
+//        [{"fieldId":"30","fieldValuesDataList":[{"value":"9898989898","optionId":null}],"fieldType":16,"defaultType":1}
         try{
             log.info("calling func");
-//            ThirdPartyTicketInputDto thirdPartyTicketInputDto = new ThirdPartyTicketInputDto("Shivam",
-//                    "Testing Sftp",0,4523523,3255,new ArrayList<>(),1,0);
+            HashMap<String, CustomerFieldDto> custFieldDTOS=extractCustomerField.ObjectToMap(extractCustomerField.getCustomerField());
+
+            CustomerFieldRequestDto phone=new CustomerFieldRequestDto();
+            List<CustomerFieldOptionsValueDataDto> fieldValuesDataList=new ArrayList<>();
+            CustomerFieldOptionsValueDataDto fieldOptionsValueDataDto=new CustomerFieldOptionsValueDataDto();
+            fieldOptionsValueDataDto.setValue("9898989898");
+            if(custFieldDTOS.get("Phone").getFieldValues().isEmpty())
+            {
+                fieldOptionsValueDataDto.setOptionId(null);
+            }
+
+            fieldValuesDataList.add(fieldOptionsValueDataDto);
+            phone.setFieldId(custFieldDTOS.get("Phone").getId());
+            phone.setFieldValuesDataList(fieldValuesDataList);
+            List<CustomerFieldRequestDto> customerFieldDtoList=new ArrayList<>();
+            customerFieldDtoList.add(phone);
+            log.info(phone.toString());
             MultiValueMap<String, Object> nameValuePairList = new LinkedMultiValueMap<>();
             nameValuePairList.add("name","Shivam");
             nameValuePairList.add("description","Descr");
@@ -130,6 +148,7 @@ public class TicketController {
             nameValuePairList.add("ticketFields",new ArrayList<>());
             nameValuePairList.add("ticketFormId",1209);
             nameValuePairList.add("ticketFormType",0);
+            nameValuePairList.add("customerField",customerFieldDtoList);
             Boolean bool=sendToThirdParty.SendTicket(nameValuePairList);
             return bool?new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

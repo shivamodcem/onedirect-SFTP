@@ -1,7 +1,9 @@
 package com.onedirect.sftp.service.Impl;
 
         import com.fasterxml.jackson.databind.ObjectMapper;
+        import com.onedirect.sftp.DTO.BrandUserDto.BrandUserDto;
         import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDetailedDto;
+        import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDto;
         import com.onedirect.sftp.config.CustFieldBrandApiConfig;
         import com.onedirect.sftp.service.ExtractCustomerField;
         import org.apache.http.HttpEntity;
@@ -15,6 +17,8 @@ package com.onedirect.sftp.service.Impl;
         import org.slf4j.LoggerFactory;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
+
+        import java.util.HashMap;
 
 @Service
 public class ExtractCustomerFieldImpl implements ExtractCustomerField {
@@ -61,6 +65,16 @@ public class ExtractCustomerFieldImpl implements ExtractCustomerField {
         }
         return customerFieldDetailedDtos;
 
+    }
+    @Override
+    public HashMap<String, CustomerFieldDto> ObjectToMap(CustomerFieldDetailedDto customerFieldDetailedDto)
+    {
+        HashMap<String, CustomerFieldDto> customerFieldDetailedDtoMap=new HashMap<>();
+        for(CustomerFieldDto customerFieldDto: customerFieldDetailedDto.getCustomerFields())
+        {
+            customerFieldDetailedDtoMap.put(customerFieldDto.getFieldTitle(),customerFieldDto);
+        }
+        return customerFieldDetailedDtoMap;
     }
 
 }

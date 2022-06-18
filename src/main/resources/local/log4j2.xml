@@ -3,7 +3,7 @@
 
   <!--Properties-->
   <Properties>
-    <Property name="log-path">/opt/akoshalogs/sftplogs/</Property>
+    <Property name="log-path">/opt/akoshalogs/sftpapi</Property>
   </Properties>
 
 
