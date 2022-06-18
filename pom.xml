@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.onedirect</groupId>
+    <artifactId>onedirect-SFTP</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>onedirect-SFTP</name>
+    <description>Tool for migrating data From File to ThirdParty.</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--    Maven Configs    -->
+        <linkXRef>false</linkXRef>
+        <skipTests>true</skipTests>
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <!-- Application -->
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <slf4j.vaersion>1.7.30</slf4j.vaersion>
+        <apache.commons.version>3.11</apache.commons.version>
+        <google.guava.version>19.0</google.guava.version>
+        <org.json.json.version>20201115</org.json.json.version>
+        <apache.httpCLient.version>4.5.6</apache.httpCLient.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--            <scope>runtime</scope>-->
+        <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.onedirect</groupId>
+            <artifactId>dto-commons</artifactId>
+            <version>1.1.72-RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>public</name>
+            <url>http://gcp-in-nexus.onedirect.in:8081/repository/Releases/</url>
+        </repository>
+        <repository>
+            <id>Snapshots</id>
+            <name>Snapshots</name>
+            <url>http://gcp-in-nexus.onedirect.in:8081/repository/Snapshots/</url>
+        </repository>
+    </repositories>
+    <build>
+
+        <finalName>sftpapi</finalName>
+
+        <resources>
+            <resource>
+                <!-- overrides default resource directory -->
+                <directory>src/main/resources/${profile.maven}</directory>
+            </resource>
+            <!--      <resource>-->
+            <!--        &lt;!&ndash; done for common config files &ndash;&gt;-->
+            <!--        <directory>src/main/resources/common</directory>-->
+            <!--      </resource>-->
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <profile.maven>local</profile.maven>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- Dock profile -->
+        <profile>
+            <id>dock</id>
+            <properties>
+                <profile.maven>dock</profile.maven>
+            </properties>
+        </profile>
+
+        <!-- az-prod profile -->
+        <profile>
+            <id>azure</id>
+            <properties>
+                <profile.maven>azure</profile.maven>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

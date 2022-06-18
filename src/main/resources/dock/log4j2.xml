@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60" status="INFO">
+  <Properties>
+    <Property name="log-path">/opt/akoshalogs/sftpapi</Property>
+  </Properties>
+  <Appenders>
+
+    <RollingFile name="ConsoleFile"
+      fileName="${log-path}/sftpapi-console.log"
+      filePattern="${log-path}/sftpapi-console-%d{yyyy-MM-dd}-%i.log.gz">
+      <PatternLayout>
+        <pattern>%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%wEx</pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy/>
+      </Policies>
+      <DefaultRolloverStrategy max="4">
+        <Delete basePath="${log-path}" maxDepth="2">
+          <IfFileName glob="*/sftpapi-console-*.log.gz">
+            <IfLastModified age="15d">
+              <IfAccumulatedFileCount exceeds="4"/>
+            </IfLastModified>
+          </IfFileName>
+        </Delete>
+      </DefaultRolloverStrategy>
+    </RollingFile>
+
+    <RollingFile name="HqlLogFile"
+      fileName="${log-path}/sftpapi-hql.log"
+      filePattern="${log-path}/sftpapi-hql-%d{yyyy-MM-dd}-%i.log.gz">
+      <PatternLayout>
+        <pattern>%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{---}{faint} %clr{[%15.15t]}{faint} %c %M %L - %msg%n
+        </pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy/>
+      </Policies>
+      <DefaultRolloverStrategy max="4">
+        <Delete basePath="${log-path}" maxDepth="2">
+          <IfFileName glob="*/sftpapi-hql-*.log.gz">
+            <IfLastModified age="3d">
+              <IfAccumulatedFileCount exceeds="4"/>
+            </IfLastModified>
+          </IfFileName>
+        </Delete>
+      </DefaultRolloverStrategy>
+    </RollingFile>
+
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout>
+        <pattern>%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%wEx</pattern>
+      </PatternLayout>
+    </Console>
+
+  </Appenders>
+  <Loggers>
+    <Logger name="org.springframework.web" level="info" additivity="false">
+      <appender-ref ref="ConsoleFile"/>
+      <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="com.onedirect" level="debug" additivity="false">
+      <appender-ref ref="ConsoleFile"/>
+      <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+      <appender-ref ref="HqlLogFile"/>
+      <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="com.fasterxml.jackson" level="debug" additivity="false">
+      <appender-ref ref="ConsoleFile"/>
+      <appender-ref ref="STDOUT"/>
+    </Logger>
+    <!-- <Logger name="org.apache.kafka" level="debug" additivity="false"> 
+      <appender-ref ref="STDOUT" /> </Logger> -->
+    <Root level="info">
+      <appender-ref ref="ConsoleFile"/>
+      <appender-ref ref="STDOUT"/>
+    </Root>
+  </Loggers>
+</Configuration>
