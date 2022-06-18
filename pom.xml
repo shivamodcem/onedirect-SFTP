@@ -33,6 +33,8 @@
         <slf4j.vaersion>1.7.30</slf4j.vaersion>
         <apache.commons.version>3.11</apache.commons.version>
         <google.guava.version>19.0</google.guava.version>
+        <dto-commons.version>1.1.73-RELEASE</dto-commons.version>
+        <common-utils.version>1.0.36-RELEASE</common-utils.version>
         <org.json.json.version>20201115</org.json.json.version>
         <apache.httpCLient.version>4.5.6</apache.httpCLient.version>
     </properties>
@@ -94,6 +96,17 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.onedirect</groupId>
+            <artifactId>dto-commons</artifactId>
+            <version>${dto-commons.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.onedirect</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>${common-utils.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

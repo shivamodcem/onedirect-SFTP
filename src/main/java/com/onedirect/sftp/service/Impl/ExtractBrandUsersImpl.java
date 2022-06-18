@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,12 +54,13 @@ public class ExtractBrandUsersImpl implements ExtractBrandUsers {
                     }
                 }
                 else{
-                    log.info("Status Code {} recieved from isApi is",response.getStatusLine().getStatusCode());
+                    log.info("Status Code {} recieved from isApi",response.getStatusLine().getStatusCode());
+                    //empty list will be returned
                 }
             }
             catch (Exception exc) {
                 log.info("The following error occurred : {}", exc.getMessage());
-                return brandUserData;
+                return brandUserData; //empty list
             }
 
 

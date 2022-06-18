@@ -46,7 +46,7 @@ public class ExtractCustomerFieldImpl implements ExtractCustomerField {
                     }
                 }
                 else{
-                    log.info("Status Code {} recieved from isApi is",response.getStatusLine().getStatusCode());
+                    log.info("Status Code {} recieved from BrandApi is",response.getStatusLine().getStatusCode());
                 }
             }
             catch (Exception exc) {

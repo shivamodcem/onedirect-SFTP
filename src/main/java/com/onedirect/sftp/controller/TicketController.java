@@ -19,6 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -119,15 +121,15 @@ public class TicketController {
             log.info("calling func");
 //            ThirdPartyTicketInputDto thirdPartyTicketInputDto = new ThirdPartyTicketInputDto("Shivam",
 //                    "Testing Sftp",0,4523523,3255,new ArrayList<>(),1,0);
-            List<NameValuePair> nameValuePairList=new ArrayList<>();
-            nameValuePairList.add(new BasicNameValuePair("name","Shivam"));
-            nameValuePairList.add(new BasicNameValuePair("description","Descr"));
-            nameValuePairList.add(new BasicNameValuePair("resourceType",Integer.toString(0)));
-            nameValuePairList.add(new BasicNameValuePair("assignedTo",Integer.toString(4523523)));
-            nameValuePairList.add(new BasicNameValuePair("teamId",Integer.toString(3255)));
-            nameValuePairList.add(new BasicNameValuePair("ticketFields",new ArrayList<>().toString()));
-            nameValuePairList.add(new BasicNameValuePair("ticketFormId",Integer.toString(1209)));
-            nameValuePairList.add(new BasicNameValuePair("ticketFormType",Integer.toString(0)));
+            MultiValueMap<String, Object> nameValuePairList = new LinkedMultiValueMap<>();
+            nameValuePairList.add("name","Shivam");
+            nameValuePairList.add("description","Descr");
+            nameValuePairList.add("resourceType",0);
+            nameValuePairList.add("assignedTo",4523523);
+            nameValuePairList.add("teamId",3255);
+            nameValuePairList.add("ticketFields",new ArrayList<>());
+            nameValuePairList.add("ticketFormId",1209);
+            nameValuePairList.add("ticketFormType",0);
             Boolean bool=sendToThirdParty.SendTicket(nameValuePairList);
             return bool?new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
