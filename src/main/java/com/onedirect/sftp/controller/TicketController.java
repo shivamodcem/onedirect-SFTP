@@ -4,6 +4,7 @@ import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDetailedDto;
 import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDto;
 import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldOptionsValueDataDto;
 import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldRequestDto;
+import com.onedirect.sftp.DTO.ThirdPartyDto.SftpTicketInputDTO;
 import com.onedirect.sftp.DTO.ThirdPartyDto.ThirdPartyTicketInputDto;
 import com.onedirect.sftp.DTO.TicketFieldBrandDto.TicketFieldDTO;
 import com.onedirect.sftp.SftpShopperstopApplication;
@@ -44,6 +45,7 @@ public class TicketController {
     @Autowired
     private ExtractTicketFieldImpl extractTicketField;
 
+
     @Autowired
     private ExtractCustomerFieldImpl extractCustomerField;
     @Autowired
@@ -73,6 +75,20 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+
+    @RequestMapping(value="/read", method= RequestMethod.POST)
+    public ResponseEntity<List<SftpTicketInputDTO>> read() {
+        List<SftpTicketInputDTO> input;
+        try {
+            input = readingFile.readDataFromExcel();
+        } catch (Exception ex) {
+            log.error("error occured while trying to read data from sheet {}", ex);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<List<SftpTicketInputDTO>>(input,HttpStatus.OK);
+
+    }
+
     @RequestMapping(value="/tick", method= RequestMethod.POST)
     public ResponseEntity<String> brand(){
         List<TicketFieldDTO> ticketFieldDTOS=new ArrayList<>();
