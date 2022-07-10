@@ -5,7 +5,6 @@ import java.util.List;
 
 public class TicketFieldDto {
 
-  private Long id;
   private Integer customLabelId;
   private List<TicketFieldValuesDataDto> ticketFieldValuesDataList;
   private Byte fieldType;
@@ -20,13 +19,7 @@ public class TicketFieldDto {
   }
 
 
-  public Long getId() {
-    return id;
-  }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public Integer getCustomLabelId() {
     return customLabelId;
@@ -48,8 +41,7 @@ public class TicketFieldDto {
   @Override
   public String toString() {
     return "TicketFieldDto{"
-            + "id=" + id
-            + ", customLabelId=" + customLabelId
+            + "customLabelId=" + customLabelId
             + ", ticketFieldValuesDataList=" + ticketFieldValuesDataList
             + ", fieldType=" + fieldType
             + '}';

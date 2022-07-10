@@ -3,8 +3,7 @@ package com.onedirect.sftp.service.Impl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onedirect.sftp.DTO.BrandUserDto.BrandUserDto;
-import com.onedirect.sftp.config.BrandApiConfig;
-import com.onedirect.sftp.config.IsApiConfig;
+import com.onedirect.sftp.config.InterCommConfig;
 import com.onedirect.sftp.service.ExtractBrandUsers;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,10 +15,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,16 +27,20 @@ import java.util.List;
 public class ExtractBrandUsersImpl implements ExtractBrandUsers {
     private static final Logger log = LoggerFactory.getLogger(ExtractBrandUsersImpl.class);
     @Autowired
-    private IsApiConfig isApiConfig;
+    private InterCommConfig interCommConfig;
+
+    @Value("#{${isapi.url}}")
+    String isApiUrl;
+
     @Override
     public List<BrandUserDto> getTotalUsers() {
         List<BrandUserDto> brandUserData=new ArrayList<>();
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            String url = isApiConfig.getUrl()+"?brand-id=" + isApiConfig.getBrandId().toString() +"&product-id=" +isApiConfig.getProductId().toString();
+            String url = isApiUrl+"?brand-id=" + interCommConfig.getBrandId().toString() +"&product-id=" +interCommConfig.getProductId().toString();
             HttpGet request = new HttpGet(url);
-            request.addHeader("brandId",isApiConfig.getBrandId().toString());
-            request.addHeader("brandUserId",isApiConfig.getBrandUserId().toString());
-            request.addHeader("productId",isApiConfig.getProductId().toString());
+            request.addHeader("brandId",interCommConfig.getBrandId().toString());
+            request.addHeader("brandUserId",interCommConfig.getBrandUserId().toString());
+            request.addHeader("productId",interCommConfig.getProductId().toString());
 
             log.info("isapi.url : {} " , url);
             try {
@@ -72,8 +75,7 @@ public class ExtractBrandUsersImpl implements ExtractBrandUsers {
 
     }
     @Override
-    public HashMap<String, Integer>  ObjectToMap(List<BrandUserDto> brandUserDtoList) {
-        HashMap<String, Integer> brandUserDtoMap=new HashMap<>();
+    public HashMap<String, Integer>  ObjectToMap(HashMap<String,Integer> brandUserDtoMap,List<BrandUserDto> brandUserDtoList) {
         for(BrandUserDto brandUserDto: brandUserDtoList)
         {
             brandUserDtoMap.put(brandUserDto.getEmail().toLowerCase().trim(),brandUserDto.getId());

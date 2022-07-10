@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ExtractBrandUsers {
     List<BrandUserDto> getTotalUsers();
-    HashMap<String, Integer> ObjectToMap(List<BrandUserDto> brandUserDtoList);
+    HashMap<String, Integer> ObjectToMap(HashMap<String,Integer> brandUserDtoMap,List<BrandUserDto> brandUserDtoList);
 }

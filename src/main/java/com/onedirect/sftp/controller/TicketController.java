@@ -13,6 +13,7 @@ import com.onedirect.sftp.service.Impl.ExtractCustomerFieldImpl;
 import com.onedirect.sftp.service.Impl.ExtractTicketFieldImpl;
 import com.onedirect.sftp.service.Impl.ReadingFile;
 import com.onedirect.sftp.service.SendToThirdParty;
+import com.onedirect.sftp.service.StartSftpTransfer;
 import javafx.util.Pair;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -45,6 +46,9 @@ public class TicketController {
     @Autowired
     private ExtractTicketFieldImpl extractTicketField;
 
+    @Autowired
+    private StartSftpTransfer startSftpTransfer;
+
 
     @Autowired
     private ExtractCustomerFieldImpl extractCustomerField;
@@ -64,7 +68,7 @@ public class TicketController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             HashMap<String,Integer>brandUserDtoMap=new HashMap<>();
-            brandUserDtoMap=extractBrandUsers.ObjectToMap(brandUserDtoList);
+            extractBrandUsers.ObjectToMap(brandUserDtoMap,brandUserDtoList);
             log.info("brand user map {}",brandUserDtoMap);
         }
         catch (Exception e)
@@ -77,15 +81,15 @@ public class TicketController {
     }
 
     @RequestMapping(value="/read", method= RequestMethod.POST)
-    public ResponseEntity<List<SftpTicketInputDTO>> read() {
-        List<SftpTicketInputDTO> input;
+    public ResponseEntity<String> read() {
+        List<HashMap<String,String>> sftpTicketInputDTOS = new ArrayList<>();
         try {
-            input = readingFile.readDataFromExcel();
+            readingFile.readDataFromExcel(sftpTicketInputDTOS);
         } catch (Exception ex) {
             log.error("error occured while trying to read data from sheet {}", ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<List<SftpTicketInputDTO>>(input,HttpStatus.OK);
+        return new ResponseEntity<>(sftpTicketInputDTOS.toString(), HttpStatus.OK);
 
     }
 
@@ -165,13 +169,13 @@ public class TicketController {
             nameValuePairList.add("ticketFormId",1209);
             nameValuePairList.add("ticketFormType",0);
             nameValuePairList.add("customerField",customerFieldDtoList);
-            Boolean bool=sendToThirdParty.SendTicket(nameValuePairList);
-            return bool?new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            String responseString=sendToThirdParty.SendTicket(nameValuePairList);
+            return new ResponseEntity<>(responseString,HttpStatus.OK);
         }
         catch (Exception e)
         {
             log.error("Exception Occured due to {}",e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 
@@ -179,6 +183,7 @@ public class TicketController {
 
     @RequestMapping(value="/status", method= RequestMethod.GET)
     public ResponseEntity<String> status()  {
+        startSftpTransfer.sftpTransfer(6221);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

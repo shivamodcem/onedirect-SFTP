@@ -1,10 +1,11 @@
 package com.onedirect.sftp.config;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+
 @Configuration
-@ConfigurationProperties(prefix = "isapi")
-public class IsApiConfig {
-    private String url;
+@ConfigurationProperties(prefix = "intercomm")
+public class InterCommConfig {
 
     private Integer brandId;
 
@@ -19,14 +20,6 @@ public class IsApiConfig {
     public void setProductId(Byte productId)
     {
         this.productId=productId;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Integer getBrandId() {
@@ -47,8 +40,7 @@ public class IsApiConfig {
 
     @Override
     public String toString() {
-        return "IsApiServiceConfig{" +
-                "url='" + url + '\'' +
+        return "InterServiceConfig{" +
                 ", brandId=" + brandId +
                 ", brandUserId=" + brandUserId +
                 ", ProductId=" + productId +

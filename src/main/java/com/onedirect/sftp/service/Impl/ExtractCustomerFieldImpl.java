@@ -1,10 +1,9 @@
 package com.onedirect.sftp.service.Impl;
 
         import com.fasterxml.jackson.databind.ObjectMapper;
-        import com.onedirect.sftp.DTO.BrandUserDto.BrandUserDto;
         import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDetailedDto;
         import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDto;
-        import com.onedirect.sftp.config.CustFieldBrandApiConfig;
+        import com.onedirect.sftp.config.InterCommConfig;
         import com.onedirect.sftp.service.ExtractCustomerField;
         import org.apache.http.HttpEntity;
         import org.apache.http.HttpResponse;
@@ -16,6 +15,7 @@ package com.onedirect.sftp.service.Impl;
         import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
         import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.beans.factory.annotation.Value;
         import org.springframework.stereotype.Service;
 
         import java.util.HashMap;
@@ -24,16 +24,19 @@ package com.onedirect.sftp.service.Impl;
 public class ExtractCustomerFieldImpl implements ExtractCustomerField {
     private static final Logger log = LoggerFactory.getLogger(ExtractCustomerFieldImpl.class);
     @Autowired
-    private CustFieldBrandApiConfig custFieldBrandApiConfig;
+    private InterCommConfig interCommConfig;
+
+    @Value("#{${cust.url}}")
+    String custUrl;
     @Override
     public CustomerFieldDetailedDto getCustomerField() {
         CustomerFieldDetailedDto customerFieldDetailedDtos=null;
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            String url = custFieldBrandApiConfig.getUrl();
+            String url = custUrl;
             HttpGet request = new HttpGet(url);
-            request.addHeader("brandId", custFieldBrandApiConfig.getBrandId().toString());
-            request.addHeader("brandUserId", custFieldBrandApiConfig.getBrandUserId().toString());
-            request.addHeader("productId", custFieldBrandApiConfig.getProductId().toString());
+            request.addHeader("brandId", interCommConfig.getBrandId().toString());
+            request.addHeader("brandUserId", interCommConfig.getBrandUserId().toString());
+            request.addHeader("productId", interCommConfig.getProductId().toString());
 
             log.info("BrandApi.url for customer field is : {} " , url);
             try {
@@ -70,9 +73,12 @@ public class ExtractCustomerFieldImpl implements ExtractCustomerField {
     public HashMap<String, CustomerFieldDto> ObjectToMap(CustomerFieldDetailedDto customerFieldDetailedDto)
     {
         HashMap<String, CustomerFieldDto> customerFieldDetailedDtoMap=new HashMap<>();
-        for(CustomerFieldDto customerFieldDto: customerFieldDetailedDto.getCustomerFields())
+        if(customerFieldDetailedDto!=null && customerFieldDetailedDto.getCustomerFields()!=null && !customerFieldDetailedDto.getCustomerFields().isEmpty())
         {
-            customerFieldDetailedDtoMap.put(customerFieldDto.getFieldTitle(),customerFieldDto);
+            for(CustomerFieldDto customerFieldDto: customerFieldDetailedDto.getCustomerFields())
+            {
+                customerFieldDetailedDtoMap.put(customerFieldDto.getFieldTitle(),customerFieldDto);
+            }
         }
         return customerFieldDetailedDtoMap;
     }
