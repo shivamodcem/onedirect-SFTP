@@ -62,10 +62,6 @@
       <appender-ref ref="ConsoleFile"/>
       <appender-ref ref="STDOUT"/>
     </Logger>
-    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
-      <appender-ref ref="HqlLogFile"/>
-      <appender-ref ref="STDOUT"/>
-    </Logger>
     <Logger name="com.fasterxml.jackson" level="debug" additivity="false">
       <appender-ref ref="ConsoleFile"/>
       <appender-ref ref="STDOUT"/>

@@ -54,7 +54,6 @@ public enum BrandEnums {
             map.add("resourceType",0);
             map.add("tags",ShopperStopHelper.getTag());
 //        map.add("applyTicketRules", true);
-            log.info("map is {}",map);
             return map;
         }
     };
