@@ -2,15 +2,13 @@ package com.onedirect.sftp.DTO.CustomerFieldDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.onedirect.dtocommons.dto.FieldMaskingDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomerFieldDto {
 

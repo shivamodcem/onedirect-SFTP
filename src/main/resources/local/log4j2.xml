@@ -20,8 +20,7 @@
     <RollingFile name="sftp-Console-Log" fileName="${log-path}/sftp-console.log"
       filePattern="${log-path}/sftp-console-%d{yyyy-MM-dd}-%i.log.gz">
       <PatternLayout>
-        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c %M %L -
-          %msg%n
+        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c %M %L - %msg%n
         </pattern>
       </PatternLayout>
       <Policies>
@@ -40,8 +39,7 @@
     <RollingFile name="Failed-Events-Log" fileName="${log-path}/failed-events.log"
       filePattern="${log-path}/failed-events-%d{yyyy-MM-dd}-%i.log.gz">
       <PatternLayout>
-        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c %M %L -
-          %msg%n
+        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c %M %L - %msg%n
         </pattern>
       </PatternLayout>
       <Policies>

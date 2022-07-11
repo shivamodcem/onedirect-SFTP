@@ -97,7 +97,6 @@ public class ReadingFile {
                         log.error("Encountered Problem while reading Fields");
                     }
                     else {
-                        log.info("TicketInput Field :: {}",FieldMap);
                         sftpTicketInputDTOS.add(FieldMap);
                     }
 

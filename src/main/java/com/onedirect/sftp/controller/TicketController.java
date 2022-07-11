@@ -4,7 +4,6 @@ import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDetailedDto;
 import com.onedirect.sftp.DTO.CustomerFieldDto.CustomerFieldDto;
 import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldOptionsValueDataDto;
 import com.onedirect.sftp.DTO.ThirdPartyDto.CustomerFieldRequestDto;
-import com.onedirect.sftp.DTO.ThirdPartyDto.SftpTicketInputDTO;
 import com.onedirect.sftp.DTO.ThirdPartyDto.ThirdPartyTicketInputDto;
 import com.onedirect.sftp.DTO.TicketFieldBrandDto.TicketFieldDTO;
 import com.onedirect.sftp.SftpShopperstopApplication;

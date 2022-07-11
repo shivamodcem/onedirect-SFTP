@@ -16,10 +16,11 @@ package com.onedirect.sftp.service.Impl;
         import org.slf4j.LoggerFactory;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.beans.factory.annotation.Value;
+        import org.springframework.context.annotation.PropertySource;
         import org.springframework.stereotype.Service;
 
         import java.util.HashMap;
-
+@PropertySource("classpath:application.properties")
 @Service
 public class ExtractCustomerFieldImpl implements ExtractCustomerField {
     private static final Logger log = LoggerFactory.getLogger(ExtractCustomerFieldImpl.class);

@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Map;
+
 
 @SpringBootApplication
 
@@ -26,7 +28,6 @@ public class SftpShopperstopApplication {
         return (applicationArguments) -> {
             if(applicationArguments.containsOption("brandId") && applicationArguments.containsOption("brandUserId") && applicationArguments.containsOption("productId"))
             {
-
                 interCommConfig.setBrandId(Integer.valueOf(applicationArguments.getOptionValues("brandId").get(0)));
                 interCommConfig.setBrandUserId(Integer.valueOf(applicationArguments.getOptionValues("brandUserId").get(0)));
                 interCommConfig.setProductId(Byte.valueOf(applicationArguments.getOptionValues("productId").get(0)));

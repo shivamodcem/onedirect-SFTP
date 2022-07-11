@@ -15,8 +15,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -27,7 +27,7 @@ public class HttpClientUtil {
     public static final Charset UTF_8 = Charset.forName("UTF-8");
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    private static Logger LOG = LogManager.getLogger(HttpClientUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HttpClientUtil.class);
 
     /**
      * Util method to send get request and map the result with desired class type.
