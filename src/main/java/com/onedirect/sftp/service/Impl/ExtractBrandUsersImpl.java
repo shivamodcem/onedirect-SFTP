@@ -30,7 +30,7 @@ public class ExtractBrandUsersImpl implements ExtractBrandUsers {
     @Autowired
     private InterCommConfig interCommConfig;
 
-    @Value("#{${isapi.url}}")
+    @Value("${isapi.url}")
     String isApiUrl;
 
     @Override

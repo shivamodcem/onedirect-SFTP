@@ -27,7 +27,7 @@ public class ExtractCustomerFieldImpl implements ExtractCustomerField {
     @Autowired
     private InterCommConfig interCommConfig;
 
-    @Value("#{${cust.url}}")
+    @Value("${cust.url}")
     String custUrl;
     @Override
     public CustomerFieldDetailedDto getCustomerField() {

@@ -12,6 +12,8 @@ import java.util.HashMap;
 @PropertySource("classpath:application.properties")
 public class ShopperStopHelper {
 
+//    private static Integer teamId;
+
     @Value("#{${shopperfieldMap}}")
     public void setshopperfieldMap(HashMap<String,Integer> shopperfieldMap)
     {
@@ -23,7 +25,28 @@ public class ShopperStopHelper {
     {
         ShopperStopHelper.tagId=tagId;
     }
+//    @Value("${shopperTeamId}")
+//    public void setshopperTeamId(Integer teamId)
+//    {
+//        ShopperStopHelper.teamId=teamId;
+//    }
+//    @Value("${shopperTicketFormId}")
+//    public void setShopperTicketFormId(Integer shopperTicketFormId)
+//    {
+//        ShopperStopHelper.shopperTicketFormId=shopperTicketFormId;
+//    }
+//    @Value("${shopperTicketFormType}")
+//    public void setShopperTicketFormType(Integer shopperTicketFormType)
+//    {
+//        ShopperStopHelper.shopperTicketFormType=shopperTicketFormType;
+//    }
     private static Integer tagId;
+//    private static Integer shopperTicketFormId;
+//    private static Integer shopperTicketFormType;
+//    public static Integer getTeamId(){return teamId;}
+//    public static Integer getShopperTicketFormId(){return shopperTicketFormId;}
+//    public static Integer getShopperTicketFormType(){return shopperTicketFormType;}
+
     private static final Logger log = LoggerFactory.getLogger(ShopperStopHelper.class);
     public static HashMap<String,Integer>  getFieldMapping()
     {

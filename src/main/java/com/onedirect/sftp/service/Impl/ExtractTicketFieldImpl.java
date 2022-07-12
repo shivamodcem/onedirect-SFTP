@@ -30,7 +30,7 @@ public class ExtractTicketFieldImpl implements ExtractTicketField {
     @Autowired
     private InterCommConfig interCommConfig;
 
-    @Value("#{${brandapi.url}}")
+    @Value("${brandapi.url}")
     String brandApiUrl;
 
     @Override

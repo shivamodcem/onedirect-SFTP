@@ -53,6 +53,9 @@ public enum BrandEnums {
             map.add("customerField",customerFieldDtoList);
             map.add("resourceType",0);
             map.add("tags",ShopperStopHelper.getTag());
+//            map.add("teamId",ShopperStopHelper.getTeamId());
+//            map.add("ticketFormId",ShopperStopHelper.getShopperTicketFormId());
+//            map.add("ticketFormType",ShopperStopHelper.getShopperTicketFormType());
 //        map.add("applyTicketRules", true);
             return map;
         }

@@ -66,7 +66,6 @@ public class ReadingFile {
                     for (int cell = 0; cell < cells; cell++) {
                         XSSFCell xssfCell = (XSSFCell) xssfRow.getCell(cell);
                         String cellColumn = columnNames.get(cell);
-                        log.info("cell type " + xssfCell.getCellType());
                         switch (xssfCell.getCellType()) {
 
                             case STRING:

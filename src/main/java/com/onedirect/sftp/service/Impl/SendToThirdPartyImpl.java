@@ -24,7 +24,7 @@ public class SendToThirdPartyImpl implements SendToThirdParty {
     @Autowired
     private InterCommConfig interCommConfig;
 
-    @Value("#{${thirdparty.url}}")
+    @Value("${thirdparty.url}")
     String thirdPartyUrl;
 
     private static final Gson gson = new GsonBuilder().serializeNulls().create();
