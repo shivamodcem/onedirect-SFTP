@@ -40,7 +40,7 @@ public class ReadingFile {
         try {
             FileInputStream inputStream = null;
             try {
-                log.info(filePathForSrc);
+
                 inputStream = new FileInputStream(filePathForSrc);
             } catch (FileNotFoundException e) {
                 throw new FileNotFoundException(e.getMessage());

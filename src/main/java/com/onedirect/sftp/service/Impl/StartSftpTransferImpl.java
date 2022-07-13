@@ -38,6 +38,7 @@ public class StartSftpTransferImpl implements StartSftpTransfer {
     public void sftpTransfer(Integer brandId) {
         HashMap<String,Integer> brandUserDtoMap=new HashMap<>();
         List<HashMap<String,String>> sftpTicketInputDTOS=new ArrayList<>();
+        List<HashMap<String,String>> failedSftpTicketInputDTOS=new ArrayList<>();
         HashMap<String, CustomerFieldDto> custFieldDTOS=new HashMap<>();
         HashMap<String, TicketFieldDTO> ticketFieldDtoHashMap=new HashMap<>();
 
@@ -67,6 +68,7 @@ public class StartSftpTransferImpl implements StartSftpTransfer {
                 log.error("Brand Users detail cant be extracted");
                 throw new Exception("Exception while extracting brand user details");
             }
+            log.info("Total no of dto are {}",sftpTicketInputDTOS.size());
             for(HashMap<String,String>  dto:sftpTicketInputDTOS)
             {
                 MultiValueMap<String, Object> thirdPartyDtoNameValuePairList = new LinkedMultiValueMap<>();
@@ -86,9 +88,12 @@ public class StartSftpTransferImpl implements StartSftpTransfer {
                 }
                 catch (Exception ex)
                 {
-                    log.error("exception occured while sending dto to 3rd party because of {} for {}",ex,thirdPartyDtoNameValuePairList);
+                    failedSftpTicketInputDTOS.add(dto);
+                    log.error("exception occured while sending dto to 3rd party because of {}, {}",ex,thirdPartyDtoNameValuePairList);
                 }
             }
+            log.info("Data Transmitted successfully from SFTP server to 3rd party api with {} dto failure out of {} total dto",
+                    failedSftpTicketInputDTOS.size(),sftpTicketInputDTOS.size());
             readingFile.moveFileHelper();
         }
         catch (Exception ex)
