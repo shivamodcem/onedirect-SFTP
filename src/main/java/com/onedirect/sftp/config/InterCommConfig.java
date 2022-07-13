@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class InterCommConfig {
 
     private Integer brandId;
-
+    private String fileName;
     private Integer brandUserId;
 
     private Byte productId;
@@ -24,6 +24,14 @@ public class InterCommConfig {
 
     public Integer getBrandId() {
         return brandId;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public void setBrandId(Integer brandId) {
@@ -44,6 +52,7 @@ public class InterCommConfig {
                 ", brandId=" + brandId +
                 ", brandUserId=" + brandUserId +
                 ", ProductId=" + productId +
+                ", fileName=" + fileName +
                 '}';
     }
 }

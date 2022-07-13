@@ -1,6 +1,7 @@
 package com.onedirect.sftp.service.Impl;
 
 
+import com.onedirect.sftp.config.InterCommConfig;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.CellType;
 import org.slf4j.Logger;
@@ -11,6 +12,9 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -22,16 +26,22 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class ReadingFile {
     private static final Logger log = LoggerFactory.getLogger(ReadingFile.class);
+    @Autowired
+    private InterCommConfig interCommConfig;
+
+    @Value("${filePathSrc}")
+    String filePathSrc;
     public void readDataFromExcel(List<HashMap<String, String>> sftpTicketInputDTOS) {
 
-        String filePathSrc = "/Users/chaudhary/Downloads/sheet.xlsx";
-        String filePathDes="/Users/chaudhary";
+        String filePathForSrc = filePathSrc+interCommConfig.getFileName();
         try {
             FileInputStream inputStream = null;
             try {
-                inputStream = new FileInputStream(filePathSrc);
+                log.info(filePathForSrc);
+                inputStream = new FileInputStream(filePathForSrc);
             } catch (FileNotFoundException e) {
                 throw new FileNotFoundException(e.getMessage());
             }
@@ -102,7 +112,6 @@ public class ReadingFile {
 
                 }
             }
-//            moveFile(filePathSrc,filePathDes);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -122,6 +131,12 @@ public class ReadingFile {
         FileUtils.moveFileToDirectory(
                 FileUtils.getFile(src),
                 FileUtils.getFile(des), true);
+    }
+    public void moveFileHelper() throws IOException
+    {
+        String src = filePathSrc+interCommConfig.getFileName();
+        String des=filePathSrc+"/completed-"+new Date();
+        moveFile(src,des);
     }
 
 }

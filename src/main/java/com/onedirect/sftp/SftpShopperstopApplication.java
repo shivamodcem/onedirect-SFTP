@@ -26,11 +26,14 @@ public class SftpShopperstopApplication {
     @Bean
     ApplicationRunner applicationRunner(StartSftpTransfer startSftpTransfer, InterCommConfig interCommConfig, ConfigurableApplicationContext context) {
         return (applicationArguments) -> {
-            if(applicationArguments.containsOption("brandId") && applicationArguments.containsOption("brandUserId") && applicationArguments.containsOption("productId"))
+            if(applicationArguments.containsOption("brandId") && applicationArguments.containsOption("brandUserId") && applicationArguments.containsOption("productId")
+            && applicationArguments.containsOption("fileName")
+            )
             {
                 interCommConfig.setBrandId(Integer.valueOf(applicationArguments.getOptionValues("brandId").get(0)));
                 interCommConfig.setBrandUserId(Integer.valueOf(applicationArguments.getOptionValues("brandUserId").get(0)));
                 interCommConfig.setProductId(Byte.valueOf(applicationArguments.getOptionValues("productId").get(0)));
+                interCommConfig.setFileName(applicationArguments.getOptionValues("fileName").get(0));
                 Long start=System.currentTimeMillis();
                 log.info("Starting SFTP service");
                 startSftpTransfer.sftpTransfer(Integer.valueOf(applicationArguments.getOptionValues("brandId").get(0)));

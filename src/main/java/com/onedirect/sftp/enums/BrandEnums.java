@@ -27,14 +27,17 @@ public enum BrandEnums {
             if(!validateDescription(dto))
             {
                 log.error("Description not found for dto {}",dto);
+                return false;
             }
             if(!validateName(dto))
             {
                 log.error("Name not found for dto {}",dto);
+                return false;
             }
             if(!validatePsAssigned(dto,brandUserDtoMap))
             {
                 log.error("Ps Agent email not found for dto in isApi {}",dto);
+                return false;
             }
             return true;
         }

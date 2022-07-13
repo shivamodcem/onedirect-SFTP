@@ -89,6 +89,7 @@ public class StartSftpTransferImpl implements StartSftpTransfer {
                     log.error("exception occured while sending dto to 3rd party because of {} for {}",ex,thirdPartyDtoNameValuePairList);
                 }
             }
+            readingFile.moveFileHelper();
         }
         catch (Exception ex)
         {
