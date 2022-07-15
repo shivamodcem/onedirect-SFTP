@@ -51,7 +51,7 @@ public enum BrandEnums {
             String name=getNameForShopper(dto);
             map.add("name",name);
             map.add("description",dto.get("Description"));
-            map.add("assignedTo",brandUserDtoMap.get(dto.get("Agent assigned email")));
+            map.add("assignedTo",brandUserDtoMap.get(dto.get("Agent assigned email").toLowerCase().trim()));
             map.add("ticketFields",ticketFieldDtos);
             map.add("customerField",customerFieldDtoList);
             map.add("resourceType",0);
@@ -147,7 +147,7 @@ public enum BrandEnums {
         return false;
     }
     public static boolean validatePsAssigned(HashMap dto, HashMap<String, Integer> brandUserDtoMap) {
-        if (dto.get("Agent assigned email")!=null && !dto.get("Agent assigned email").toString().isEmpty() && brandUserDtoMap.get(dto.get("Agent assigned email").toString())!=null)
+        if (dto.get("Agent assigned email")!=null && !dto.get("Agent assigned email").toString().isEmpty() && brandUserDtoMap.get(dto.get("Agent assigned email").toString().toLowerCase().trim())!=null)
         {
             return true;
         }

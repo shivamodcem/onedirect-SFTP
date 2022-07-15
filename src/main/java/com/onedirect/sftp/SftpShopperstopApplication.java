@@ -38,8 +38,13 @@ public class SftpShopperstopApplication {
                 log.info("Starting SFTP service");
                 startSftpTransfer.sftpTransfer(Integer.valueOf(applicationArguments.getOptionValues("brandId").get(0)));
                 log.info("Time taken for running SFTP was {} ms",System.currentTimeMillis()-start);
-                context.close();
+
             }
+            else
+            {
+                log.info("Invalid Arguments passed");
+            }
+            context.close();
 
         };
     }
